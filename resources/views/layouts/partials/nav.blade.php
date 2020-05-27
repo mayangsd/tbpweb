@@ -91,6 +91,13 @@
             </a>
         </li>
 
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" href="{{ route('backend.classrooms.index') }}">
+                <i class="cil-address-book c-sidebar-nav-icon"></i>
+               Daftar kelas
+            </a>
+        </li>
+
     </ul>
     <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent"
             data-class="c-sidebar-unfoldable"></button>

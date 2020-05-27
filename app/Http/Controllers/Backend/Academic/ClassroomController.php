@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Academic;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClassroomController extends Controller
 {
@@ -14,7 +15,11 @@ class ClassroomController extends Controller
      */
     public function index()
     {
-        //
+        $classrooms = DB::table('classrooms')
+        ->select('classrooms.*')
+        ->get();
+        return view('klp10.classrooms.index', compact('classrooms')); 
+
     }
 
     /**

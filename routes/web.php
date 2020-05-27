@@ -67,10 +67,10 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Backend', 'prefix' => 'adm
         Route::resource('courses', 'CourseController');
         Route::resource('curricula', 'CurriculumController')->except(['show']);
 
-        /** K10 - ADM */
-//        Route::get('classrooms/{id}/print', 'ClassroomController@print')->name('classrooms.print');
-//        Route::resource('classrooms', 'ClassroomController');
-//        Route::resource('classrooms.students', 'ClassroomStudentController')->only(['create', 'store', 'destroy']);
+        // K10 - ADM 
+        Route::get('classrooms/{id}/print', 'ClassroomController@print')->name('classrooms.print');
+        Route::resource('classrooms', 'ClassroomController');
+        Route::resource('classrooms.students', 'ClassroomStudentController')->only(['create', 'store', 'destroy']);
 
         /** K11 - ADM */
 //        Route::post('semesters', 'SemesterController@activate')->name('semesters.activate');
