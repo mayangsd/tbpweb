@@ -93,7 +93,7 @@
 
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{ route('backend.classrooms.index') }}">
-                <i class="cil-address-book c-sidebar-nav-icon"></i>
+             <i class="cil-book c-sidebar-nav-icon"></i> 
                Daftar kelas
             </a>
         </li>
