@@ -53,6 +53,7 @@ class DepartmentController extends Controller
 
     public function show(Department $department)
     {
+      
         return view('backends.departments.show', compact('department'));
     }
 

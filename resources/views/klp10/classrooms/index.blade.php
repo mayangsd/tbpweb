@@ -10,6 +10,7 @@
 
 @section('toolbar')
     {!! cui()->toolbar_btn(route('backend.classrooms.create'), 'cil-playlist-add', 'Tambah Kelas') !!}
+    
 @endsection
 
 @section('content')
@@ -25,9 +26,10 @@
                 <thead class="thead-light">
                 <tr>
                     <th>nama kelas</th>
-                    <th>min student</th>
-                    <th>max student</th>
-                    <th>description</th>
+                    <th>minimal mahasiswa</th>
+                    <th>maksimal mahasiswa </th>
+                    <th>deskripsi kelas</th>
+                    <th>Jumlah Pembatalan</th>
                     <th>Aksi</th>
                 </tr>
                 </thead>
@@ -43,6 +45,9 @@
                         </td>
                         <td>
                           {{$classroom->description}}
+                        </td>
+                        <td>
+                          {{$classroom->cancelled}}
                         </td>
                        
                         <td>

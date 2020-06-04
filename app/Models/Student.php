@@ -41,6 +41,7 @@ class Student extends Model
     {
         return $this->belongsTo(Department::class, 'department_id');
     }
+    
 
     /** Extended Attribute */
 
