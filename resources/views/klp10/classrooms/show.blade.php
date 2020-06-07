@@ -10,13 +10,13 @@
 
 @section('toolbar')
     @can('classrooms_manage')
-        {!! cui()->toolbar_delete(route('backend.classrooms.destroy', [$classrooms>id]), $classrooms>id, 'cil-trash', 'Hapus', 'Anda yakin akan menghapus Kelas ini?') !!}
-        {!! cui()->toolbar_btn(route('backend.classrooms.edit', $classrooms>id), 'cil-pencil', 'Edit') !!}
+        {!! cui()->toolbar_delete(route('backend.classrooms.destroy', [$classroom->id]), $classroom->id, 'cil-trash', 'Hapus', 'Anda yakin akan menghapus kelas ini?') !!}
+        {!! cui()->toolbar_btn(route('backend.classrooms.edit', $classroom->id), 'cil-pencil', 'Edit') !!}
         {!! cui()->toolbar_btn(route('backend.classrooms.create'), 'cil-library-add', 'Tambah') !!}
     @endcan
-   
     {!! cui()->toolbar_btn(route('backend.classrooms.index'), 'cil-list', 'List Kelas') !!}
 @endsection
+
 
 @section('content')
     <div class="row justify-content-center">
