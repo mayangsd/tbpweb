@@ -5,6 +5,7 @@
         'Home' => route('home'),
         'Daftar Kelas' => route('backend.classrooms.index'),
         'Detail Kelas' => route('backend.classrooms.show', [$classrooms->id]),
+
         'Lihat' => '#'
     ]) !!}
 @endsection
@@ -79,4 +80,5 @@
 
     </div>
     
+
 @endsection

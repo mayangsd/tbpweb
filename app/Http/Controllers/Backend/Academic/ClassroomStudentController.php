@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Academic;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use App\Models\CourseSelection;
 use App\Models\Classroom;
 use App\Models\Course;
@@ -32,6 +33,7 @@ class ClassroomStudentController extends Controller
      */
     public function create($id)
     {
+
         $classrooms = Classroom::find($id);
         $course_selection = CourseSelection::with('student_semesters.students')->where('classroom_id', $id)->get();
         $student_in_classroom = (count($course_selection) == 0) ? null : $course_selection;  
@@ -39,6 +41,7 @@ class ClassroomStudentController extends Controller
         $students = Student::all()->pluck('name','id');
         
             return view('klp10.classrooms.student', compact('classrooms', 'course_selection', 'student_in_classroom', 'student_semesters', 'students')); 
+
     }
 
     /**
@@ -49,6 +52,7 @@ class ClassroomStudentController extends Controller
      */
     public function store(Request $request, $id)
     {
+
         $classrooms = Classroom::find($id);
         if(StudentSemester::create($request->all())){
             notify('success', 'Berhasil menambahkan data Mahasiswa');
@@ -65,6 +69,7 @@ class ClassroomStudentController extends Controller
         $semester = Semester::all()->pluck('period','id');
 
             return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom'));
+
 
     }
 
