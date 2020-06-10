@@ -83,7 +83,7 @@ class ClassroomController extends Controller
         $student_semesters = StudentSemester::with('students')->find($id);
         $semester = Semester::all()->pluck('period','id');
 
-            return view('klp10.classrooms.show', compact('classrooms','course','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom'));
+            return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom'));
         
     }
 
@@ -116,8 +116,15 @@ class ClassroomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Classroom $classroom)
     {
-        //
+        if($classroom->delete())
+        {
+            notify('success', 'Berhasil menghapus Kelas');
+            return redirect()->route('backend.classrooms.index');
+        }else{
+            notify('error', 'Gagal menghapus data Kelas');
+            return redirect()->back()->withErrors();
+        }
     }
 }

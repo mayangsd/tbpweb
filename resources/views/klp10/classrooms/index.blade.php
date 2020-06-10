@@ -53,6 +53,7 @@
                         <td>
                             {!! cui()->btn_view(route('backend.classrooms.show', [$classroom->id])) !!}
                             {!! cui()->btn_edit(route('backend.classrooms.edit', [$classroom->id])) !!}
+                            {!! cui()->btn_delete(route('backend.classrooms.destroy', [$classrooms->id]), "Anda yakin akan menghapus data Prodi ini?") !!}
                         </td>
                     </tr>
                 @empty
