@@ -52,9 +52,8 @@ class ClassroomController extends Controller
      */
     public function store(Request $request)
     {
-     
-      
-       
+        
+        $request->validate(Classroom::validation_rules);
         
         if(Classroom::create($request->all())){
             notify('success', 'Berhasil menambahkan data kelas');
@@ -83,7 +82,12 @@ class ClassroomController extends Controller
         $student_semesters = StudentSemester::with('students')->find($id);
         $semester = Semester::all()->pluck('period','id');
 
+
             return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom'));
+
+          
+            return view('klp10.classrooms.show', compact('classrooms','course','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom'));
+
         
     }
 
@@ -95,7 +99,15 @@ class ClassroomController extends Controller
      */
     public function edit($id)
     {
-        //
+        // $classroomEdit = Classroom::where('id', $id)->get();        
+        // return view('klp10.classrooms.edit', compact('classroomEdit'));
+
+        
+        $classrooms = Classroom::find($id);
+        $course = Course::all()->pluck('name','id');
+        $semester = Semester::all()->pluck('period','id');
+      
+        return view('klp10.classrooms.edit', ['classrooms'=> $classrooms,'course' => $course,'semester'=> $semester]);
     }
 
     /**
@@ -107,7 +119,18 @@ class ClassroomController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required|unique:posts|max:255',
+            'body' => 'required',
+        ]);
+
+        $classrooms = Classroom::find($id);
+        if($classrooms->update($request->all())){
+            notify('success', 'Berhasil mengubah data kelas');
+        }else{
+            notify('error', 'Gagal mengubah data Jurusan/Program Studi');
+        }
+        return redirect()->route('backend.classrooms.show', $classrooms->id);
     }
 
     /**
@@ -120,11 +143,13 @@ class ClassroomController extends Controller
     {
         if($classroom->delete())
         {
+
             notify('success', 'Berhasil menghapus Kelas');
             return redirect()->route('backend.classrooms.index');
         }else{
             notify('error', 'Gagal menghapus data Kelas');
-            return redirect()->back()->withErrors();
+            notify('success', 'Berhasil menghapus data daftar kelas');
+            return redirect()->route('backend.classrooms.index');
         }
     }
 }
