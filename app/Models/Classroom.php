@@ -9,7 +9,6 @@ class Classroom extends Model
     const validation_rules = [
         'name' => 'required',
        
-        
 
 
     ];

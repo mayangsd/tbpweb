@@ -25,34 +25,28 @@
             <table class="table table-outline table-hover">
                 <thead class="thead-light">
                 <tr>
-                    <th>nama kelas</th>
-                    <th>minimal mahasiswa</th>
-                    <th>maksimal mahasiswa </th>
-                    <th>deskripsi kelas</th>
-                    <th>Jumlah Pembatalan</th>
-                    <th>Aksi</th>
+                    <th class="text-center">nama kelas</th>
+                    <th class="text-center">minimal mahasiswa</th>
+                    <th class="text-center">maksimal mahasiswa </th>
+                    <th class="text-center">Jumlah Pembatalan</th>
+                    <th class="text-center">deskripsi kelas</th>
+                    <th class="text-center">Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
                 @forelse($classrooms as $classroom)
                     <tr>
-                        <td>{{ $classroom->name }}</td>
-                        <td>
-                            {{ $classroom->min_students }}    
-                        </td>
-                        <td>
-                          {{$classroom->max_students}}
-                        </td>
-                        <td>
-                          {{$classroom->description}}
-                        </td>
-                        <td>
-                          {{$classroom->cancelled}}
-                        </td>
+                        
+                        <td>{{$classroom->name }}</td>
+                        <td>{{$classroom->min_students }}</td>
+                        <td>{{$classroom->max_students}}</td>
+                        <td>{{$classroom->cancelled}}</td>
+                        <td>{{$classroom->description}}</td>
                        
-                        <td>
+                        <td class="text-center">
                             {!! cui()->btn_view(route('backend.classrooms.show', [$classroom->id])) !!}
                             {!! cui()->btn_edit(route('backend.classrooms.edit', [$classroom->id])) !!}
+                            {!! cui()->btn_delete(route('backend.classrooms.destroy',[$classroom->id]), "Anda yakin akan menghapus data kelas ini??") !!}
                         </td>
                     </tr>
                 @empty

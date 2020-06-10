@@ -93,7 +93,15 @@ class ClassroomController extends Controller
      */
     public function edit($id)
     {
-        //
+        // $classroomEdit = Classroom::where('id', $id)->get();        
+        // return view('klp10.classrooms.edit', compact('classroomEdit'));
+
+        
+        $classrooms = Classroom::find($id);
+        $course = Course::all()->pluck('name','id');
+        $semester = Semester::all()->pluck('period','id');
+      
+        return view('klp10.classrooms.edit', ['classrooms'=> $classrooms,'course' => $course,'semester'=> $semester]);
     }
 
     /**
@@ -105,7 +113,18 @@ class ClassroomController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required|unique:posts|max:255',
+            'body' => 'required',
+        ]);
+
+        $classrooms = Classroom::find($id);
+        if($classrooms->update($request->all())){
+            notify('success', 'Berhasil mengubah data kelas');
+        }else{
+            notify('error', 'Gagal mengubah data Jurusan/Program Studi');
+        }
+        return redirect()->route('backend.classrooms.show', $classrooms->id);
     }
 
     /**
@@ -114,9 +133,16 @@ class ClassroomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Classroom $classroom)
     {
-        //
+        if($classroom->delete())
+        {
+            notify('success', 'Berhasil menghapus data daftar kelas');
+            return redirect()->route('backend.classrooms.index');
+        }else{
+            notify('error', 'Gagal menghapus data daftar kelas');
+            return redirect()->back()->withErrors();
+        }
     }
 
     public function print($id)
