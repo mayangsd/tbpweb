@@ -6,8 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Classroom extends Model
 {
+
     const STATUS_ACCEPTED = 0;
     const STATUS_REJECTED = 1;
+
+    const validation_rules = [
+        'name' => 'required',
+       
+
 
     const STATUSES = [
         self::STATUS_ACCEPTED => 'TIDAK BATAL',
