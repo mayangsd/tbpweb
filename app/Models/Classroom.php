@@ -6,13 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Classroom extends Model
 {
-    const validation_rules = [
-        'name' => 'required',
-       
-        
+    const STATUS_ACCEPTED = 0;
+    const STATUS_REJECTED = 1;
 
-
+    const STATUSES = [
+        self::STATUS_ACCEPTED => 'TIDAK BATAL',
+        self::STATUS_REJECTED => 'BATAL'
     ];
+
+    public static $validation_rules = [
+        'course_id' => 'required',
+        'semester_id' => 'required',
+        'name' => 'required',
+        'min_students' => 'required',
+        'max_students' => 'required',
+        'cancelled' => 'required',
+        'description' => 'required',
+    ];
+   
 
     protected $table = 'classrooms';
 
@@ -42,4 +53,16 @@ class Classroom extends Model
     {
         return $this->hasOne(CourseSelection::class);
     }
+
+    public function getStatusTextAttribute($value){
+        switch ($this->cancelled){
+           
+            case self::STATUS_ACCEPTED:
+                return "<span class=\"badge badge-success\">TIDAK BATAL</span>";
+                break;
+            case self::STATUS_REJECTED:
+                return "<span class=\"badge badge-danger\">BATAL</span>";
+                break;
+        }
+}
 }

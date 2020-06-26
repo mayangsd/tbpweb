@@ -1,37 +1,41 @@
+<table class="table table-outline table-hover">
+<thead class="thead-light">
+    <tr>
+        <th>Nama Kelas</th>
+        <th>Minimal Mahasiswa</th>
+        <th>Maksimal Mahasiswa</th>
+        <th>Matkul</th>
+        <th>Semester</th>
+        <th>Dosen Pengampu</th>
+        <th>Mahasiswa</th>
+        <th>Batal</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
 
-<!-- Static Field for Nama -->
-<div class="form-group">
-    <div class='form-label'>Nama Kelas</div>
-    <div>{{ $classrooms->name }}</div>
+   
+<td>
+  {{ $classrooms->name }}
 </div>
+</td>
 
-<!-- Static Field for Singkatan -->
-<div class="form-group">
-    <div class='form-label'>Minimal Mahasiswa</div>
-    <div>{{ $classrooms->min_students }}</div>
-</div>
+<td>
+{{ $classrooms->min_students }}
 
-<!-- Static Field for Singkatan -->
-<div class="form-group">
-    <div class='form-label'>Maksimal Mahasiswa</div>
-    <div>{{ $classrooms->max_students }}</div>
-</div>
+</td>
+<td>
+   {{ $classrooms->max_students }}
+</td>
 
-<!-- Static Field for Fakultas -->
-<div class="form-group">
-    <div class='form-label'>Matkul</div>
-    <div>{{ optional($classrooms->course)->name }}</div>
-</div>
+<td>
+{{ optional($classrooms->course)->name }}
 
-<!-- Static Field for Fakultas -->
-<div class="form-group">
-    <div class='form-label'>Semester</div>
-    <div>{{ optional($classrooms->semester)->period }}</div>
-</div>
-
-<!-- Static Field for Kode Nasional -->
-<div class="form-group">
-    <div class='form-label'>Dosen Pengampu</div>
+</td>
+<td>
+{{ optional($classrooms->semester)->period }}
+</td>
+<td>
     @if($lecturer_in_classroom) 
     <ul>
         @foreach($lecturer_in_classroom as $lecturer_class)
@@ -44,12 +48,8 @@
     @else
     {{'belum ada Dosen di kelas ini'}}
     @endif
-</div>
-    
-
-<!-- Static Field for Kode Nasional -->
-<div class="form-group">
-    <div class='form-label'>Mahasiswa</div>
+</td>
+<td>
     @if($student_in_classroom) 
     <ul>
         @foreach($student_in_classroom as $student_class)
@@ -62,17 +62,11 @@
     @else
     {{'belum ada mahasiswa yang mengambil kelas ini'}}
     @endif
-</div>
+</td>
+<td>
+{!!$classrooms->status_text!!}
 
-<!-- Static Field for Kode Nasional -->
-<div class="form-group">
-    <div class='form-label'>Pembatalan Kelas</div>
-    <div>{{ $classrooms->cancelled }}</div>
-</div>
-
-<!-- Static Field for Kode Nasional -->
-<div class="form-group">
-    <div class='form-label'>Deskripsi Kelas</div>
-    <div>{{ $classrooms->description}}</div>
-</div>
-
+</td>
+</tr>
+</tbody>
+</table>

@@ -10,7 +10,7 @@
 <!-- Input (Select) Semester -->
 <div class="form-group">
     <label class="form-label" for="semester_id">Semester</label>
-    {{ html()->select('semester_id')->options($semester)->class(["form-control", "is-invalid" => $errors->has('semester_id')])->id('semester_id')->placeholder('Pilih Semester') }}
+    {{ html()->select('semester_id')->options($period)->class(["form-control", "is-invalid" => $errors->has('semester_id')])->id('semester_id')->placeholder('Pilih Semester') }}
     @error('semester_id')
     <div class="invalid-feedback">{{ $errors->first('semester_id') }}</div>
     @enderror
@@ -44,10 +44,11 @@
     @enderror
 </div>
 
-<!-- Text Field Input for Cancelled -->
+
+<!-- Input (Select) Semester -->
 <div class="form-group">
-    <label class="form-label" for="cancelled">Jumlah Pembatalan</label>
-    {{ html()->text('cancelled')->class(["form-control", "is-invalid" => $errors->has('cancelled')])->id('cancelled')->placeholder('Cancelled') }}
+    <label class="form-label" for="cancelled">Batal</label>
+    {{ html()->select('cancelled')->options($cancelled)->class(["form-control", "is-invalid" => $errors->has('cancelled')])->id('cancelled')->placeholder('Pilih Batal') }}
     @error('cancelled')
     <div class="invalid-feedback">{{ $errors->first('cancelled') }}</div>
     @enderror
