@@ -42,7 +42,8 @@
             @foreach($student_in_classroom as $student_class)
                 <tr>   
                     <td>{{ $student_class->student_semesters->students->nim }}</td>
-                    <td>{{ $student_class->student_semesters->students->name }}</td>                   
+                    <td>{{ $student_class->student_semesters->students->name }}</td>       
+       
                 </tr>
             @endforeach
             </tbody>
@@ -50,5 +51,8 @@
     @else
         {{'belum ada mahasiswa yang mengambil kelas ini'}}
     @endif
+    
 </div>
+
+
 
