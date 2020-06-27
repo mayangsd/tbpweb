@@ -62,13 +62,8 @@ class ClassroomStudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+       public function store(Request $request, $id)
     {
-
-        $classrooms = Classroom::find($id);
-        if(StudentSemester::create($request->all())){
-
-
 
         $courses = DB::table('course_selections')
         ->where('classroom_id',$id)->get();
@@ -94,18 +89,10 @@ class ClassroomStudentController extends Controller
             'classroom_id' => $id_semester,
             'status'=>$status,])
             ){
-        $classrooms = Classroom::find($id);
-        if(StudentSemester::create($request->all())){
-
-
             notify('success', 'Berhasil menambahkan data Mahasiswa');
         }else{
             notify('error', 'Gagal menambahkan data Mahasiswa');
         }
-
-
-
-
 
         $classrooms = Classroom::find($id);
         $class_lecturers = ClassLecturer::with('lecturer')->where('classroom_id', $id)->get();
@@ -116,14 +103,10 @@ class ClassroomStudentController extends Controller
         $student_semesters = StudentSemester::with('students')->find($id);
         $semester = Semester::all()->pluck('period','id');
 
-
-        return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom'));
-
             return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom','student_semesters'));
 
 
     }
-
     /**
      * Display the specified resource.
      *
