@@ -1,3 +1,4 @@
+
 <table class="{{ config('style.table') }}">
     <!-- Static Field for Nama -->
     <tr>
@@ -10,6 +11,13 @@
         <td class='form-label'>Mata Kuliah</td>
         <td>{{ optional($classrooms->course)->name }}</td>                   
     </tr>
+
+<!-- Static Field for Nama -->
+<div class="form-group">
+    <div class='form-label'>Nama Kelas</div>
+    <div>{{ $classrooms->name }}</div>
+</div>
+
 
     <!-- Static Field for Credit -->
     <tr>
@@ -94,7 +102,8 @@
             @foreach($student_in_classroom as $student_class)
                 <tr>   
                     <td>{{ $student_class->student_semesters->students->nim }}</td>
-                    <td>{{ $student_class->student_semesters->students->name }}</td>                   
+                    <td>{{ $student_class->student_semesters->students->name }}</td>       
+       
                 </tr>
             @endforeach
             </tbody>
@@ -103,6 +112,7 @@
     @else
         {{'belum ada mahasiswa yang mengambil kelas ini'}}
     @endif
+
 
 </td>
 <td>
@@ -115,4 +125,8 @@
 
 </div>
 
+
+
+    
+</div>
 

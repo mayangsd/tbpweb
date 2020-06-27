@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Classroom extends Model
 {
+
     const STATUS_ACCEPTED = 0;
     const STATUS_REJECTED = 1;
 
@@ -14,12 +15,17 @@ class Classroom extends Model
        
 
 
+    const STATUSES = [
+        self::STATUS_ACCEPTED => 'TIDAK BATAL',
+        self::STATUS_REJECTED => 'BATAL'
     ];
+
 
     const STATUSES = [
         self::STATUS_ACCEPTED => 'TIDAK BATAL',
         self::STATUS_REJECTED => 'BATAL'
     ];
+
 
     public static $validation_rules = [
         'course_id' => 'required',
@@ -30,6 +36,7 @@ class Classroom extends Model
         'cancelled' => 'required',
         'description' => 'required',
     ];
+
 
     protected $table = 'classrooms';
 
@@ -71,5 +78,9 @@ class Classroom extends Model
                 return "<span class=\"badge badge-danger\">BATAL</span>";
                 break;
         }
+
     }
+
+}
+
 }

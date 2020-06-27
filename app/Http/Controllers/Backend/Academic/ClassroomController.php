@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend\Academic;
 
 use App\Http\Controllers\Controller;
+
+use App\Http\Controllers\Backend\Academic\ClassroomStudentController;
 use App\Models\Classroom;
 use App\Models\Course;
 use App\Models\Semester;
@@ -22,12 +24,13 @@ class ClassroomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
+
         $classrooms = Classroom::select('classrooms.*','semesters.period')
         ->join ('semesters','classrooms.semester_id','=','semesters.id')
         ->get();
         return view('klp10.classrooms.index', compact('classrooms')); 
+        
 
     }
 
@@ -55,8 +58,14 @@ class ClassroomController extends Controller
      */
     public function store(Request $request)
     {
+
      
         $this->validate($request, Classroom::$validation_rules);
+
+
+        $this->validate($request, Classroom::$validation_rules);
+
+
         if(Classroom::create($request->all())){
             notify('success', 'Berhasil menambahkan data kelas');
         }else{
@@ -75,6 +84,7 @@ class ClassroomController extends Controller
     public function show($id)
 
     {
+
         $classrooms = Classroom::find($id);
         $class_lecturers = ClassLecturer::with('lecturer')->where('classroom_id', $id)->get();
         $lecturer_in_classroom = (count($class_lecturers) == 0) ? null : $class_lecturers;
@@ -84,9 +94,13 @@ class ClassroomController extends Controller
         $student_semesters = StudentSemester::with('students')->find($id);
         $semester = Semester::all()->pluck('period','id');
 
+
         $count = CourseSelection::count();
         return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom', 'count'));
         
+
+        return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom'));
+
     }
 
     /**
@@ -141,11 +155,12 @@ class ClassroomController extends Controller
     {
         if($classroom->delete())
         {
-            notify('success', 'Berhasil menghapus data daftar kelas');
+
+            notify('success', 'Berhasil menghapus Kelas');
             return redirect()->route('backend.classrooms.index');
         }else{
-            notify('error', 'Gagal menghapus data daftar kelas');
-            return redirect()->back()->withErrors();
+            notify('error', 'Gagal menghapus data Kelas');
+            return redirect()->route('backend.classrooms.index');
         }
     }
 
