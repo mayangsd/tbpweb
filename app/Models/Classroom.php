@@ -20,6 +20,13 @@ class Classroom extends Model
         self::STATUS_REJECTED => 'BATAL'
     ];
 
+
+    const STATUSES = [
+        self::STATUS_ACCEPTED => 'TIDAK BATAL',
+        self::STATUS_REJECTED => 'BATAL'
+    ];
+
+
     public static $validation_rules = [
         'course_id' => 'required',
         'semester_id' => 'required',
@@ -29,7 +36,7 @@ class Classroom extends Model
         'cancelled' => 'required',
         'description' => 'required',
     ];
-   
+
 
     protected $table = 'classrooms';
 
@@ -57,6 +64,7 @@ class Classroom extends Model
 
     public function course_selections()
     {
+        CourseSelection::count();
         return $this->hasOne(CourseSelection::class);
     }
 
@@ -70,5 +78,9 @@ class Classroom extends Model
                 return "<span class=\"badge badge-danger\">BATAL</span>";
                 break;
         }
+
+    }
+
 }
+
 }

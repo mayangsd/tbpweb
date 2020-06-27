@@ -24,8 +24,8 @@ class ClassroomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {   
+    public function index(){
+
         $classrooms = Classroom::select('classrooms.*','semesters.period')
         ->join ('semesters','classrooms.semester_id','=','semesters.id')
         ->get();
@@ -59,6 +59,10 @@ class ClassroomController extends Controller
     public function store(Request $request)
     {
 
+     
+        $this->validate($request, Classroom::$validation_rules);
+
+
         $this->validate($request, Classroom::$validation_rules);
 
 
@@ -90,7 +94,13 @@ class ClassroomController extends Controller
         $student_semesters = StudentSemester::with('students')->find($id);
         $semester = Semester::all()->pluck('period','id');
 
+
+        $count = CourseSelection::count();
+        return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom', 'count'));
+        
+
         return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom'));
+
     }
 
     /**
@@ -164,10 +174,11 @@ class ClassroomController extends Controller
         $student_in_classroom = (count($course_selection) == 0) ? null : $course_selection;  
         $student_semesters = StudentSemester::with('students')->find($id);
         $semester = Semester::all()->pluck('period','id');
+        $count = CourseSelection::count();
 
         $pdf = PDF::loadview('klp10.classrooms.print', ['classrooms'=>$classrooms, 'semester'=>$semester, 
                                 'class_lecturers'=>$class_lecturers, 'student_in_classroom'=>$student_in_classroom, 
-                                'lecturer_in_classroom'=>$lecturer_in_classroom]);
+                                'lecturer_in_classroom'=>$lecturer_in_classroom, 'count'=>$count]);
         return $pdf->stream();
 
     }

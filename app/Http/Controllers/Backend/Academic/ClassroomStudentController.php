@@ -48,7 +48,11 @@ class ClassroomStudentController extends Controller
         $student_semesters = StudentSemester::with('students')->find($id);
         $students = Student::all()->pluck('name','id');
         
+
+        return view('klp10.classrooms.student', compact('classrooms', 'course_selection', 'student_in_classroom', 'student_semesters', 'students'));
+
             return view('klp10.classrooms.student', compact('classrooms', 'course_selection', 'student_in_classroom', 'student_semesters', 'students')); 
+
 
     }
 
@@ -60,6 +64,10 @@ class ClassroomStudentController extends Controller
      */
     public function store(Request $request, $id)
     {
+
+        $classrooms = Classroom::find($id);
+        if(StudentSemester::create($request->all())){
+
 
 
         $courses = DB::table('course_selections')
@@ -89,10 +97,14 @@ class ClassroomStudentController extends Controller
         $classrooms = Classroom::find($id);
         if(StudentSemester::create($request->all())){
 
+
             notify('success', 'Berhasil menambahkan data Mahasiswa');
         }else{
             notify('error', 'Gagal menambahkan data Mahasiswa');
         }
+
+
+
 
 
         $classrooms = Classroom::find($id);
@@ -105,7 +117,10 @@ class ClassroomStudentController extends Controller
         $semester = Semester::all()->pluck('period','id');
 
 
+        return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom'));
+
             return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom','student_semesters'));
+
 
     }
 
@@ -155,16 +170,20 @@ class ClassroomStudentController extends Controller
         $classrooms = CourseSelection::find($id);
         $course_selection = CourseSelection::where('id', $id)->delete();
         if($course_selection)
-        {
-            notify('success', 'berhasil menghapus data');
-            return redirect()->route('backend.classrooms.students.create', [$classrooms->classroom_id]);      
+        { 
+            notify('success', 'Berhasil menghapus data');
+            return redirect()->route('backend.classrooms.students.create',[$classrooms->classroom_id]);
         }
         else{
-            notify('success', 'gagal menghapus data');
-            return redirect()->route('backend.classrooms.students.create', [$classrooms->classroom_id]);
+            notify('error', 'Gagal menghapus data');
+            return redirect()->route('backend.classrooms.students.create',[$classrooms->classroom_id]);
         }
-        $mahasiswa=\App\Student::find($id);
-        $mahasiswa->delete($mahasiswa);
+    
+        
+
+
+  
       
+
     }
 }
