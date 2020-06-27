@@ -4,6 +4,14 @@ namespace App\Http\Controllers\Backend\Academic;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\CourseSelection;
+use App\Models\Classroom;
+use App\Models\Course;
+use App\Models\Semester;
+use App\Models\StudentSemester;
+use App\Models\Student;
+use App\Models\ClassLecturer;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\CourseSelection;
 use App\Models\Classroom;
@@ -53,6 +61,7 @@ class ClassroomStudentController extends Controller
     public function store(Request $request, $id)
     {
 
+
         $courses = DB::table('course_selections')
         ->where('classroom_id',$id)->get();
         foreach($courses as $course)
@@ -77,10 +86,14 @@ class ClassroomStudentController extends Controller
             'classroom_id' => $id_semester,
             'status'=>$status,])
             ){
+        $classrooms = Classroom::find($id);
+        if(StudentSemester::create($request->all())){
+
             notify('success', 'Berhasil menambahkan data Mahasiswa');
         }else{
             notify('error', 'Gagal menambahkan data Mahasiswa');
         }
+
 
         $classrooms = Classroom::find($id);
         $class_lecturers = ClassLecturer::with('lecturer')->where('classroom_id', $id)->get();
@@ -91,8 +104,8 @@ class ClassroomStudentController extends Controller
         $student_semesters = StudentSemester::with('students')->find($id);
         $semester = Semester::all()->pluck('period','id');
 
-            return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom','student_semesters'));
 
+            return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom','student_semesters'));
 
     }
 
@@ -138,6 +151,7 @@ class ClassroomStudentController extends Controller
      */
     public function destroy($classroom_id, $id)
     {
+
         $classrooms = CourseSelection::find($id);
         $course_selection = CourseSelection::where('id', $id)->delete();
         if($course_selection)
@@ -149,5 +163,8 @@ class ClassroomStudentController extends Controller
             notify('success', 'gagal menghapus data');
             return redirect()->route('backend.classrooms.students.create', [$classrooms->classroom_id]);
         }
+        $mahasiswa=\App\Student::find($id);
+        $mahasiswa->delete($mahasiswa);
+      
     }
 }
