@@ -24,8 +24,8 @@ class ClassroomController extends Controller
      */
     public function index()
     {
-        $classrooms = DB::table('classrooms')
-        ->select('classrooms.*')
+        $classrooms = Classroom::select('classrooms.*','semesters.period')
+        ->join ('semesters','classrooms.semester_id','=','semesters.id')
         ->get();
         return view('klp10.classrooms.index', compact('classrooms')); 
 
@@ -40,9 +40,11 @@ class ClassroomController extends Controller
     {
         $classrooms = Classroom::all()->pluck('name', 'id');
         $course = Course::all()->pluck('name','id');
-        $semester = Semester::all()->pluck('period','id');
+        $semester = Semester::all()->pluck('id');
+        $period=Semester::semester;
+        $cancelled=Classroom::STATUSES;
       
-        return view('klp10.classrooms.create', compact('classrooms','course','semester'));
+        return view('klp10.classrooms.create', compact('classrooms','course','semester','period','cancelled'));
     }
 
     /**
@@ -54,6 +56,7 @@ class ClassroomController extends Controller
     public function store(Request $request)
     {
      
+        $this->validate($request, Classroom::$validation_rules);
         if(Classroom::create($request->all())){
             notify('success', 'Berhasil menambahkan data kelas');
         }else{
@@ -81,7 +84,8 @@ class ClassroomController extends Controller
         $student_semesters = StudentSemester::with('students')->find($id);
         $semester = Semester::all()->pluck('period','id');
 
-        return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom'));
+        $count = CourseSelection::count();
+        return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom', 'count'));
         
     }
 
@@ -155,10 +159,11 @@ class ClassroomController extends Controller
         $student_in_classroom = (count($course_selection) == 0) ? null : $course_selection;  
         $student_semesters = StudentSemester::with('students')->find($id);
         $semester = Semester::all()->pluck('period','id');
+        $count = CourseSelection::count();
 
         $pdf = PDF::loadview('klp10.classrooms.print', ['classrooms'=>$classrooms, 'semester'=>$semester, 
                                 'class_lecturers'=>$class_lecturers, 'student_in_classroom'=>$student_in_classroom, 
-                                'lecturer_in_classroom'=>$lecturer_in_classroom]);
+                                'lecturer_in_classroom'=>$lecturer_in_classroom, 'count'=>$count]);
         return $pdf->stream();
 
     }

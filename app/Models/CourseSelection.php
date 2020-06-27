@@ -12,6 +12,8 @@ class CourseSelection extends Model
 
     ];
 
+    protected $guarded = [];
+
     public function student_semesters()
     {
         return $this->belongsTo(StudentSemester::class, 'student_semester_id', 'id');

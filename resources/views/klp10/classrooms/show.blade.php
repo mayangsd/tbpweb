@@ -9,10 +9,12 @@
 @endsection
 
 @section('toolbar')
-{!! cui()->toolbar_btn(route('backend.classrooms.print', [$classrooms->id]), 'cil-playlist-add', 'Print') !!}
-{!! cui()->toolbar_btn(route('backend.classrooms.students.create', [$classrooms->id]), 'cil-playlist-add', 'Edit') !!}
-@endsection
 
+   {!! cui()->toolbar_btn(route('backend.classrooms.students.create', [$classrooms->id]), 'cil-library-add', 'Tambah/Hapus Mahasiswa') !!}
+
+   {!! cui()->toolbar_btn(route('backend.classrooms.print', [$classrooms->id]), 'cil-print', 'Print') !!}
+
+@endsection
 
 @section('content')
     <div class="row justify-content-center">
