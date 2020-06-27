@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend\Academic;
 
 use App\Http\Controllers\Controller;
+
+use App\Http\Controllers\Backend\Academic\ClassroomStudentController;
 use App\Models\Classroom;
 use App\Models\Course;
 use App\Models\Semester;
@@ -23,11 +25,12 @@ class ClassroomController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $classrooms = DB::table('classrooms')
-        ->select('classrooms.*')
+    {   
+        $classrooms = Classroom::select('classrooms.*','semesters.period')
+        ->join ('semesters','classrooms.semester_id','=','semesters.id')
         ->get();
         return view('klp10.classrooms.index', compact('classrooms')); 
+        
 
     }
 
@@ -40,9 +43,11 @@ class ClassroomController extends Controller
     {
         $classrooms = Classroom::all()->pluck('name', 'id');
         $course = Course::all()->pluck('name','id');
-        $semester = Semester::all()->pluck('period','id');
+        $semester = Semester::all()->pluck('id');
+        $period=Semester::semester;
+        $cancelled=Classroom::STATUSES;
       
-        return view('klp10.classrooms.create', compact('classrooms','course','semester'));
+        return view('klp10.classrooms.create', compact('classrooms','course','semester','period','cancelled'));
     }
 
     /**
@@ -53,7 +58,10 @@ class ClassroomController extends Controller
      */
     public function store(Request $request)
     {
-     
+
+        $this->validate($request, Classroom::$validation_rules);
+
+
         if(Classroom::create($request->all())){
             notify('success', 'Berhasil menambahkan data kelas');
         }else{
@@ -72,6 +80,7 @@ class ClassroomController extends Controller
     public function show($id)
 
     {
+
         $classrooms = Classroom::find($id);
         $class_lecturers = ClassLecturer::with('lecturer')->where('classroom_id', $id)->get();
         $lecturer_in_classroom = (count($class_lecturers) == 0) ? null : $class_lecturers;
@@ -82,6 +91,7 @@ class ClassroomController extends Controller
         $semester = Semester::all()->pluck('period','id');
 
         return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom'));
+
         
     }
 

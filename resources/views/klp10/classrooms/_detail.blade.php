@@ -1,4 +1,3 @@
-
 <!-- Static Field for Nama -->
 <div class="form-group">
     <div class='form-label'>Nama Kelas</div>
@@ -53,6 +52,3 @@
     @endif
     
 </div>
-
-
-
