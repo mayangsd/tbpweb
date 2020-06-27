@@ -91,8 +91,6 @@ class ClassroomController extends Controller
         $semester = Semester::all()->pluck('period','id');
 
         return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom'));
-
-        
     }
 
     /**
@@ -147,11 +145,12 @@ class ClassroomController extends Controller
     {
         if($classroom->delete())
         {
-            notify('success', 'Berhasil menghapus data daftar kelas');
+
+            notify('success', 'Berhasil menghapus Kelas');
             return redirect()->route('backend.classrooms.index');
         }else{
-            notify('error', 'Gagal menghapus data daftar kelas');
-            return redirect()->back()->withErrors();
+            notify('error', 'Gagal menghapus data Kelas');
+            return redirect()->route('backend.classrooms.index');
         }
     }
 

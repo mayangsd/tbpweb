@@ -1,41 +1,8 @@
-<table class="table table-outline table-hover">
-<thead class="thead-light">
-    <tr>
-        <th>Nama Kelas</th>
-        <th>Minimal Mahasiswa</th>
-        <th>Maksimal Mahasiswa</th>
-        <th>Matkul</th>
-        <th>Semester</th>
-        <th>Dosen Pengampu</th>
-        <th>Mahasiswa</th>
-        <th>Batal</th>
-    </tr>
-</thead>
-<tbody>
-    <tr>
-   
-<td>
-  {{ $classrooms->name }}
+<!-- Static Field for Nama -->
+<div class="form-group">
+    <div class='form-label'>Nama Kelas</div>
+    <div>{{ $classrooms->name }}</div>
 </div>
-</td>
-
-
-<td>
-{{ $classrooms->min_students }}
-
-</td>
-<td>
-   {{ $classrooms->max_students }}
-</td>
-
-<td>
-{{ optional($classrooms->course)->name }}
-
-</td>
-<td>
-{{ optional($classrooms->semester)->period }}
-</td>
-<td>
 
 <!-- Static Field for Course -->
 <div class="form-group">
@@ -47,7 +14,6 @@
 <!-- Static Field for Lecturer -->
 <div class="form-group">
     <div class='form-label'>Dosen Pengampu</div>
-
     @if($lecturer_in_classroom) 
         <ul>
             @foreach($lecturer_in_classroom as $lecturer_class)
@@ -57,19 +23,6 @@
     @else
         {{'belum ada Dosen di kelas ini'}}
     @endif
-
-</td>
-<td>
-    @if($student_in_classroom) 
-    <ul>
-        @foreach($student_in_classroom as $student_class)
-        <li>
-
-            {{$student_class->student_semesters->students->name}}
-</li>
-        @endforeach
-        </ul
-=======
 </div>
     
 
@@ -88,25 +41,14 @@
             @foreach($student_in_classroom as $student_class)
                 <tr>   
                     <td>{{ $student_class->student_semesters->students->nim }}</td>
-                    <td>{{ $student_class->student_semesters->students->name }}</td>                   
+                    <td>{{ $student_class->student_semesters->students->name }}</td>       
+       
                 </tr>
             @endforeach
             </tbody>
         </table>
-
     @else
         {{'belum ada mahasiswa yang mengambil kelas ini'}}
     @endif
-
-</td>
-<td>
-{!!$classrooms->status_text!!}
-
-</td>
-</tr>
-</tbody>
-</table>
-
+    
 </div>
-
-

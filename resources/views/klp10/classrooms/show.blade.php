@@ -12,6 +12,13 @@
 
    {!! cui()->toolbar_btn(route('backend.classrooms.students.create', [$classrooms->id]), 'cil-library-add', 'Tambah Mahasiswa') !!}
 
+    {!! cui()->toolbar_btn(route('backend.classrooms.index'), 'cil-list', 'List Kelas') !!}
+
+@endsection
+
+
+   {!! cui()->toolbar_btn(route('backend.classrooms.students.create', [$classrooms->id]), 'cil-library-add', 'Tambah Mahasiswa') !!}
+
    {!! cui()->toolbar_btn(route('backend.classrooms.print', [$classrooms->id]), 'cil-playlist-add', 'Print') !!}
 
 @endsection

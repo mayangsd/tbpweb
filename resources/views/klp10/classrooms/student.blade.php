@@ -23,7 +23,8 @@
 
                 {{-- CARD HEADER--}}
                 <div class="card-header">
-                    <strong><i class="cil-zoom"></i> Tambah Mahasiswa {{ $classrooms->name }}</strong>
+                    <strong><i class="cil-plus"></i> Tambah Mahasiswa {{ $classrooms->name }}</strong>
+
                 </div>
 
                 {{-- CARD BODY--}}

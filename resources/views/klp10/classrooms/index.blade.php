@@ -56,7 +56,6 @@
                         <td class="text-center">
                             {!! cui()->btn_view(route('backend.classrooms.show', [$classroom->id])) !!}
                             {!! cui()->btn_edit(route('backend.classrooms.edit', [$classroom->id])) !!}
-                            {!! cui()->btn_delete(route('backend.classrooms.destroy',[$classroom->id]), "Anda yakin akan menghapus data kelas ini??") !!}
                         </td>
                     </tr>
                 @empty
