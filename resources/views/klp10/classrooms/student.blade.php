@@ -41,13 +41,20 @@
 
              </div>
              {{ html()->form()->close() }}
+         </div>
+     </div>
+     
 
-             {{-- CARD HEADER--}}
-                    <div class="card-header">
-                        <strong><i class="cil-zoom"></i> Daftar Mahasiswa Pada Kelas {{ $classrooms->name }}</strong>
-                    </div>
-                 {{-- CARD BODY--}}
-                    <div class="card-body">  
+              <div class="row justify-content-center">
+        <div class="col">
+            <div class="card">
+                {{-- CARD HEADER--}}
+                <div class="card-header">
+                    <strong><i class="cil-zoom"></i> Daftar Mahasiswa Pada Kelas {{ $classrooms->name }}</strong>
+                </div>
+
+                {{-- CARD BODY--}}
+                <div class="card-body">  
                     <table class="table table-outline table-hover">
                         <thead class="thead-light">
                              <tr>
@@ -56,28 +63,23 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                    <tbody>
-                    @forelse($course_selection as $course_selections)
-                    <tr>
-                        <td>{{ $course_selections->student_semesters->students->name }}</td>
-                        <td>{{ $course_selections->student_semesters->students->nim }}</td>
-
-                        <td>
-                        {!! cui()->btn_delete(route('backend.students.destroy', [$classrooms->id]), "Anda yakin akan menghapus data mahasiswa ini?") !!}
-                         
-                                                 </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="5">Belum ada Mahasiswa</td>
-                    </tr>
-                 @endforelse
-                </tbody>
-            </table>
+                        <tbody>
+                        @forelse($course_selection as $course_selections)
+                        <tr>
+                            <td>{{ $course_selections->student_semesters->students->name }}</td>
+                            <td>{{ $course_selections->student_semesters->students->nim }}</td>
+                            <td>{!! cui()->btn_delete(route('backend.classrooms.students.destroy', [$classrooms->id, $course_selections->id]), "Anda yakin akan menghapus data mahasiswa ini?") !!}</td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="5">Belum ada Mahasiswa</td>
+                        </tr>
+                        @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
-             
         </div>
-
     </div>
     
 
