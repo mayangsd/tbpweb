@@ -12,11 +12,6 @@
         <td>{{ optional($classrooms->course)->name }}</td>                   
     </tr>
 
-<!-- Static Field for Nama -->
-<div class="form-group">
-    <div class='form-label'>Nama Kelas</div>
-    <div>{{ $classrooms->name }}</div>
-</div>
 
 
     <!-- Static Field for Credit -->
@@ -46,7 +41,7 @@
     <!-- Static Field for Total Student in Class -->
     <tr>
         <td class='form-label'>Jumlah Mahasiswa</td>
-        <td>{{ $count }}</td>
+        <td>{{ $count ?? '' }}</td>
     </tr>
 
     <!-- Static Field for Class Description -->
