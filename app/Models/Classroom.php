@@ -11,15 +11,9 @@ class Classroom extends Model
     const STATUS_REJECTED = 1;
 
     const validation_rules = [
-        'name' => 'required',
+        'name' => 'required'
        
-
-
-    const STATUSES = [
-        self::STATUS_ACCEPTED => 'TIDAK BATAL',
-        self::STATUS_REJECTED => 'BATAL'
     ];
-
 
     const STATUSES = [
         self::STATUS_ACCEPTED => 'TIDAK BATAL',
@@ -83,4 +77,4 @@ class Classroom extends Model
 
 }
 
-}
+
