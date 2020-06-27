@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class CourseSelection extends Model
 {
-    protected $guarded = [''];
     const validation_rules = [
         'name' => 'required',
         'id' => 'required',
