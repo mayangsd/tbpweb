@@ -1,7 +1,7 @@
 <!-- Input (Select) MataKuliah -->
 <div class="form-group">
     <label class="form-label" for="course_id">Matkul</label>
-    {{ html()->select('course_id')->options($course)->class(["form-control", "is-invalid" => $errors->has('course_id')])->id('course_id') }}
+    {{ html()->select('course_id')->options($course)->class(["form-control", "is-invalid" => $errors->has('course_id')])->id('course_id')->placeholder('Pilih Matkul') }}
     @error('course_id')
     <div class="invalid-feedback">{{ $errors->first('course_id') }}</div>
     @enderror
@@ -10,9 +10,7 @@
 <!-- Input (Select) Semester -->
 <div class="form-group">
     <label class="form-label" for="semester_id">Semester</label>
-
     {{ html()->select('semester_id')->options($period)->class(["form-control", "is-invalid" => $errors->has('semester_id')])->id('semester_id')->placeholder('Pilih Semester') }}
-
     @error('semester_id')
     <div class="invalid-feedback">{{ $errors->first('semester_id') }}</div>
     @enderror
@@ -64,4 +62,3 @@
     <div class="invalid-feedback">{{ $errors->first('description') }}</div>
     @enderror
 </div>
-

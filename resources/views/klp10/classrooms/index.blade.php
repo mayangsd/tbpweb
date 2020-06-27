@@ -48,7 +48,7 @@
                           {{$classroom->max_students}}
                         </td>
                         <td>
-                          {{$classroom->period}}
+                          {{ optional($classroom->semester)->status_text }}
                         <td>
                           {!!$classroom->status_text!!}
                         </td>

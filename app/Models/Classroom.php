@@ -13,7 +13,7 @@ class Classroom extends Model
     const validation_rules = [
         'name' => 'required',
        
-
+    ];
 
     const STATUSES = [
         self::STATUS_ACCEPTED => 'TIDAK BATAL',

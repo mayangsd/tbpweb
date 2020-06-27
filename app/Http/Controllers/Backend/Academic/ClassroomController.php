@@ -80,7 +80,6 @@ class ClassroomController extends Controller
     public function show($id)
 
     {
-
         $classrooms = Classroom::find($id);
         $class_lecturers = ClassLecturer::with('lecturer')->where('classroom_id', $id)->get();
         $lecturer_in_classroom = (count($class_lecturers) == 0) ? null : $class_lecturers;
@@ -90,8 +89,8 @@ class ClassroomController extends Controller
         $student_semesters = StudentSemester::with('students')->find($id);
         $semester = Semester::all()->pluck('period','id');
 
-        return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom'));
-
+        $count = CourseSelection::count();
+        return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom', 'count'));
         
     }
 
@@ -110,8 +109,10 @@ class ClassroomController extends Controller
         $classrooms = Classroom::find($id);
         $course = Course::all()->pluck('name','id');
         $semester = Semester::all()->pluck('period','id');
+        $period=Semester::semester;
+        $cancelled=Classroom::STATUSES;
       
-        return view('klp10.classrooms.edit', ['classrooms'=> $classrooms,'course' => $course,'semester'=> $semester]);
+        return view('klp10.classrooms.edit', ['classrooms'=> $classrooms,'course' => $course,'semester'=> $semester, 'period'=> $period, 'cancelled'=> $cancelled ]);
     }
 
     /**
@@ -123,10 +124,12 @@ class ClassroomController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'title' => 'required|unique:posts|max:255',
-            'body' => 'required',
-        ]);
+        // $request->validate([
+        //     'title' => 'required|unique:posts|max:255',
+        //     'body' => 'required',
+        // ]);
+        
+        $this->validate($request, Classroom::$validation_rules);
 
         $classrooms = Classroom::find($id);
         if($classrooms->update($request->all())){
