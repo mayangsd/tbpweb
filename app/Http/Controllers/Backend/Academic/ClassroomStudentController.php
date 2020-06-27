@@ -13,15 +13,6 @@ use App\Models\Student;
 use App\Models\ClassLecturer;
 use Illuminate\Support\Facades\DB;
 
-use App\Models\CourseSelection;
-use App\Models\Classroom;
-use App\Models\Course;
-use App\Models\Semester;
-use App\Models\StudentSemester;
-use App\Models\Student;
-use App\Models\ClassLecturer;
-use Illuminate\Support\Facades\DB;
-
 class ClassroomStudentController extends Controller
 {
     /**
@@ -50,9 +41,6 @@ class ClassroomStudentController extends Controller
         
 
         return view('klp10.classrooms.student', compact('classrooms', 'course_selection', 'student_in_classroom', 'student_semesters', 'students'));
-
-            return view('klp10.classrooms.student', compact('classrooms', 'course_selection', 'student_in_classroom', 'student_semesters', 'students')); 
-
 
     }
 
