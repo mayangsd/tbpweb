@@ -113,8 +113,10 @@ class ClassroomController extends Controller
         $classrooms = Classroom::find($id);
         $course = Course::all()->pluck('name','id');
         $semester = Semester::all()->pluck('period','id');
+        $period=Semester::semester;
+        $cancelled=Classroom::STATUSES;
       
-        return view('klp10.classrooms.edit', ['classrooms'=> $classrooms,'course' => $course,'semester'=> $semester]);
+        return view('klp10.classrooms.edit', ['classrooms'=> $classrooms,'course' => $course,'semester'=> $semester, 'period'=> $period, 'cancelled'=> $cancelled ]);
     }
 
     /**
@@ -124,12 +126,14 @@ class ClassroomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+   public function update(Request $request, $id)
     {
-        $request->validate([
-            'title' => 'required|unique:posts|max:255',
-            'body' => 'required',
-        ]);
+        // $request->validate([
+        //     'title' => 'required|unique:posts|max:255',
+        //     'body' => 'required',
+        // ]);
+        
+        $this->validate($request, Classroom::$validation_rules);
 
         $classrooms = Classroom::find($id);
         if($classrooms->update($request->all())){
