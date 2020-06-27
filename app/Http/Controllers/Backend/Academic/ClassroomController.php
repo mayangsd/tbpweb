@@ -63,9 +63,6 @@ class ClassroomController extends Controller
         $this->validate($request, Classroom::$validation_rules);
 
 
-        $this->validate($request, Classroom::$validation_rules);
-
-
         if(Classroom::create($request->all())){
             notify('success', 'Berhasil menambahkan data kelas');
         }else{
@@ -98,8 +95,6 @@ class ClassroomController extends Controller
         $count = CourseSelection::count();
         return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom', 'count'));
         
-
-        return view('klp10.classrooms.show', compact('classrooms','semester', 'class_lecturers', 'student_in_classroom','lecturer_in_classroom'));
 
     }
 
